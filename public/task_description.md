@@ -22,7 +22,7 @@ Your website has to be related to event management. Here, we have given you a li
 
   - Festivals, Parades, Carnivals and Fairs, Cultural Celebrations, Fundraisers and Charity Galas, etc.
 
-- `Educational and Training Events` :books:
+- `Educational and Training Events` :books: this
 
   - Workshops and Webinars, Career Fairs, Educational Conferences, Training Programs, etc.
 
@@ -36,15 +36,15 @@ Your website has to be related to event management. Here, we have given you a li
 
 ### :writing_hand: Main Requirements
 
-1.  Make sure your design and website idea is unique. First, finalize your idea (what type of website you want to build). Then google the site design or visit `themeforest` to get your website idea. [You can visit this blog to collect free resources for your website](https://bootcamp.uxdesign.cc/free-images-and-resources-collection-for-website-c77f2fc46ce5). However, your website :x: `can not be related to your previous assignments or any demo project displayed in the course or in our conceptual sessions` :x:.
+1.  Make sure your design and website idea is unique. First, finalize your idea (what type of website you want to build). Then google the site design or visit `themeforest` to get your website idea. [You can visit this blog to collect free resources for your website](https://bootcamp.uxdesign.cc/free-images-and-resources-collection-for-website-c77f2fc46ce5). However, your website :x: `can not be related to your previous assignments or any demo project displayed in the course or in our conceptual sessions` :x:. ###
 
-2.  Home page will have a navbar, banner/slider, services, and footer.Implement `active routes` on NavBar.
+2.  Home page will have a navbar, banner/slider, services, and footer.Implement `active routes` on NavBar. ###
 
-3.  Add `two extra sections` in the home page in addition to the 4 sections mentioned above.
+3.  Add `two extra sections` in the home page in addition to the 4 sections mentioned above. ###
 
-4.  The Services section will have at least `6 event services`. You can put one or more services in a row based on your design. Each service should have a relevant name, image, price, short description and a specific button.
+4.  The Services section will have at least `6 event services`. You can put one or more services in a row based on your design. Each service should have a relevant name, image, price, short description and a specific button. ###
 
-5.  Clicking on the specific button will take the user to the service detail route. Each route should display detailed information of the service. What you will include in the detailed information is entirely upto you but make sure it is relevant.
+5.  Clicking on the specific button will take the user to the service detail route. Each route should display detailed information of the service. What you will include in the detailed information is entirely up to you but make sure it is relevant. ###
 
 6.  The service detail route will be a private/protected route. Please make sure that if the user is not logged in, the private route redirects to the login page.
 
