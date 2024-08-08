@@ -1,28 +1,57 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import BottomNavigation from '@mui/material/BottomNavigation';
-import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import RestoreIcon from '@mui/icons-material/Restore';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-
-const Footer=()=> {
-  const [value, setValue] = React.useState(0);
-
+import { Typography } from "@material-tailwind/react";
+ 
+export function Footer() {
   return (
-    <Box >
-      <BottomNavigation
-        showLabels
-        value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
-      >
-        <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
-        <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-        <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
-      </BottomNavigation>
-    </Box>
+    <footer className="w-full bg-white p-8">
+      <div className="flex flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12 bg-white text-center md:justify-between">
+        <img src="https://i.ibb.co/h1vnBwr/logo.png" alt="logo-ct" className="w-32" />
+        <ul className="flex flex-wrap items-center gap-y-2 gap-x-8">
+          <li>
+            <Typography
+              as="a"
+              href="#"
+              color="blue-gray"
+              className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
+            >
+              About Us
+            </Typography>
+          </li>
+          <li>
+            <Typography
+              as="a"
+              href="#"
+              color="blue-gray"
+              className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
+            >
+              License
+            </Typography>
+          </li>
+          <li>
+            <Typography
+              as="a"
+              href="#"
+              color="blue-gray"
+              className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
+            >
+              Contribute
+            </Typography>
+          </li>
+          <li>
+            <Typography
+              as="a"
+              href="#"
+              color="blue-gray"
+              className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
+            >
+              Contact Us
+            </Typography>
+          </li>
+        </ul>
+      </div>
+      <hr className="my-8 border-blue-gray-50" />
+      <Typography color="blue-gray" className="text-center font-normal">
+        &copy; 2023 Material Tailwind
+      </Typography>
+    </footer>
   );
 }
-export default Footer;

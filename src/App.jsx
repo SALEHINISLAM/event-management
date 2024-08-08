@@ -1,19 +1,17 @@
+import { Button } from '@material-tailwind/react'
 import { Outlet } from 'react-router-dom'
-import Footer from './SharedComponents/Footer/Footer'
-import Navbar from './SharedComponents/Navbar/Navbar'
+import { Header } from './SharedComponents/Navbar/Navbar'
+import { Footer } from './SharedComponents/Footer/Footer'
 
 function App() {
- const date= new Date()
+
   return (
     <>
+      <Header/>
       <div className="container mx-auto">
-        <Navbar/>
-        <Outlet/>
-        <Footer/>
-        <div className="text-center">
-          All Rights Reserved : {date.getFullYear()}
-        </div>
+      <Outlet/>
       </div>
+      <Footer/>
     </>
   )
 }

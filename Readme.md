@@ -104,3 +104,5 @@
 
 ->private route :
     --event details
+
+    logo: https://i.ibb.co/h1vnBwr/logo.png

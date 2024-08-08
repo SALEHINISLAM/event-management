@@ -1,142 +1,183 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import { Link, NavLink } from 'react-router-dom';
-import CelebrationSharpIcon from '@mui/icons-material/CelebrationSharp';
-const pages = ['Home', 'Services', 'About', 'Contact'];
-const links=['/','/services','/about','/contact']
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+import React from "react";
+import {
+  Navbar,
+  MobileNav,
+  Typography,
+  Button,
+  Menu,
+  MenuHandler,
+  MenuList,
+  MenuItem,
+  Avatar,
+  IconButton,
+} from "@material-tailwind/react";
+import {
+  ChevronDownIcon,
+  PowerIcon,
+  Bars2Icon,
+  HomeIcon,
+  BriefcaseIcon,
+  LinkIcon,
+  IdentificationIcon,
+} from "@heroicons/react/24/solid";
 
-function Navbar() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+// profile menu component
+const profileMenuItems = [
+  {
+    label: "Sign Out",
+    icon: PowerIcon,
+  },
+];
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
+function ProfileMenu() {
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+  const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <AppBar position="static" className='rounded-b-2xl'>
-      <Container maxWidth="xl" className='bg-[#FAF9F6] rounded-b-2xl text-black'>
-        <Toolbar disableGutters>
-        <Link className='flex-grow' to={'/'}>
-          <div className="flex-grow flex flex-row items-center">
-          
-          <CelebrationSharpIcon sx={{  mr: 1 }} />
-          <img src="/logo.png" alt="eduvenue" className='w-24 h-auto'/>
-          
-          </div>
-          </Link>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page,index) => (
-              <Button
-                key={index}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+    <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
+      <MenuHandler>
+        <Button
+          variant="text"
+          color="blue-gray"
+          className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
+        >
+          <Avatar
+            variant="circular"
+            
+            
+            alt="tania andrew"
+            className="border border-gray-900 p-0.5 w-5 h-5 sm:w-10 sm:h-10"
+            src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
+          />
+          <ChevronDownIcon
+            strokeWidth={2.5}
+            className={`h-3 w-3 transition-transform ${
+              isMenuOpen ? "rotate-180" : ""
+            }`}
+          />
+        </Button>
+      </MenuHandler>
+      <MenuList className="p-1">
+        {profileMenuItems.map(({ label, icon }, key) => {
+          const isLastItem = key === profileMenuItems.length - 1;
+          return (
+            <MenuItem
+              key={label}
+              onClick={closeMenu}
+              className={`flex items-center gap-2 rounded ${
+                isLastItem
+                  ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
+                  : ""
+              }`}
+            >
+              {React.createElement(icon, {
+                className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
+                strokeWidth: 2,
+              })}
+              <Typography
+                as="span"
+                variant="small"
+                className="font-normal"
+                color={isLastItem ? "red" : "inherit"}
               >
-                <NavLink to={`${links[index]}`} className={({isActive,isPending})=>isActive?'active text-black font-bold':isPending?'pending ':'text-gray-500'}>
-                    {page}
-                </NavLink>
-              </Button>
-            ))}
-          </Box>
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-              className='text-black'
-            >
-              {pages.map((page,index) => (
-                <MenuItem key={index} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">
-                    <NavLink to={`${links[index]}`} className={({isActive,isPending})=>isActive?'active':isPending?'pending':''}>
-                    {page}
-                    </NavLink>
-                  </Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-
-        </Toolbar>
-      </Container>
-    </AppBar>
+                {label}
+              </Typography>
+            </MenuItem>
+          );
+        })}
+      </MenuList>
+    </Menu>
   );
 }
-export default Navbar;
+
+// nav list menu
+
+// nav list component
+const navListItems = [
+  {
+    label: "Home",
+    icon: HomeIcon,
+    url: "/",
+  },
+  {
+    label: "Services",
+    icon: BriefcaseIcon,
+    url: "/services",
+  },
+  {
+    label: "Contact",
+    icon: LinkIcon,
+    url: "/contact",
+  },
+  {
+    label: "About",
+    icon: IdentificationIcon,
+    url: "/about",
+  },
+];
+
+function NavList() {
+  return (
+    <ul className="mt-2 mb-4 ml-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
+      {navListItems.map(({ label, icon, url }, key) => (
+        <Typography
+          key={label}
+          as="a"
+          href={url}
+          variant="small"
+          color="gray"
+          className="font-medium text-blue-gray-500"
+        >
+          <MenuItem className="flex items-center gap-2 lg:rounded-full">
+            {React.createElement(icon, { className: "h-[18px] w-[18px]" })}{" "}
+            <span className="text-gray-900"> {label}</span>
+          </MenuItem>
+        </Typography>
+      ))}
+    </ul>
+  );
+}
+
+export function Header() {
+  const [isNavOpen, setIsNavOpen] = React.useState(false);
+
+  const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
+
+  React.useEffect(() => {
+    window.addEventListener(
+      "resize",
+      () => window.innerWidth >= 960 && setIsNavOpen(false)
+    );
+  }, []);
+
+  return (
+    <Navbar className="mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6">
+      <div className="relative mx-auto flex items-center justify-between text-blue-gray-900">
+        <img src="https://i.ibb.co/h1vnBwr/logo.png" alt="" className="w-32" />
+        <div className="hidden lg:block">
+          <NavList />
+        </div>
+        <IconButton
+          size="sm"
+          color="blue-gray"
+          variant="text"
+          onClick={toggleIsNavOpen}
+          className="ml-auto mr-2 lg:hidden"
+        >
+          <Bars2Icon className="h-6 w-6" />
+        </IconButton>
+        {/* login */}
+        <div className="flex flex-row">
+          <Button size="sm" variant="text">
+            <span>Log In</span>
+          </Button>
+          <ProfileMenu />
+        </div>
+      </div>
+      <MobileNav open={isNavOpen} className="overflow-scroll">
+        <NavList />
+      </MobileNav>
+    </Navbar>
+  );
+}
