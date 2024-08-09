@@ -23,7 +23,6 @@ const Home = props => {
                 <Button>
                     samia
                 </Button>
-
             </div>
         </div>
     );

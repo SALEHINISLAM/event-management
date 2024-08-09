@@ -1,4 +1,4 @@
-## :computer: Task Description:
+<!-- ## :computer: Task Description: -->
 
 Our company is focused on event management. Currently, we are looking for a front-end web developer to build our brand new website using `React`, `firebase`, `react router`, etc.
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Navbar,
   MobileNav,
@@ -20,6 +20,9 @@ import {
   LinkIcon,
   IdentificationIcon,
 } from "@heroicons/react/24/solid";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../../Providers/AuthProviders";
+import { toast } from "react-toastify";
 
 // profile menu component
 const profileMenuItems = [
@@ -29,7 +32,7 @@ const profileMenuItems = [
   },
 ];
 
-function ProfileMenu() {
+function ProfileMenu({onSignOut}) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const closeMenu = () => setIsMenuOpen(false);
@@ -64,7 +67,12 @@ function ProfileMenu() {
           return (
             <MenuItem
               key={label}
-              onClick={closeMenu}
+              onClick={()=>{
+                closeMenu();
+                if (label==="Sign Out") {
+                  onSignOut();
+                }
+              }}
               className={`flex items-center gap-2 rounded ${
                 isLastItem
                   ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
@@ -141,7 +149,7 @@ function NavList() {
 
 export function Header() {
   const [isNavOpen, setIsNavOpen] = React.useState(false);
-
+const {user, logOut}=useContext(AuthContext)
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
 
   React.useEffect(() => {
@@ -150,7 +158,14 @@ export function Header() {
       () => window.innerWidth >= 960 && setIsNavOpen(false)
     );
   }, []);
-
+  const handleSignOut=async()=>{
+    try{
+      await logOut();
+      toast.success("Logged Out Successful !")
+    }catch(err){
+      toast.error(err.message);
+    }
+  }
   return (
     <Navbar className="mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6">
       <div className="relative mx-auto flex items-center justify-between text-blue-gray-900">
@@ -168,11 +183,24 @@ export function Header() {
           <Bars2Icon className="h-6 w-6" />
         </IconButton>
         {/* login */}
-        <div className="flex flex-row">
+        <div className="flex flex-row items-center">
+          {
+            user?(
+              <>
+              <Typography variant="small" className="mr-4">
+                Hello, {user.displayName}
+              </Typography>
+              <ProfileMenu onSignOut={handleSignOut}/>
+              </>
+            ):(
+              <Link to={`/login`}>
           <Button size="sm" variant="text">
             <span>Log In</span>
           </Button>
-          <ProfileMenu />
+          </Link>
+            )
+          }
+          
         </div>
       </div>
       <MobileNav open={isNavOpen} className="overflow-scroll">

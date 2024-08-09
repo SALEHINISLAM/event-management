@@ -13,6 +13,7 @@ import {
   import { ref, set } from "firebase/database";
   
   export const AuthContext=createContext(null);
+  
   const AuthProviders = ({children}) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -118,6 +119,6 @@ import {
     </div>;
   };
   AuthProviders.propTypes={
-      children: PropTypes.node.isRequired, 
+      children: PropTypes.object, 
   }
   export default AuthProviders;

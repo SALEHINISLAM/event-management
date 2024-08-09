@@ -5,6 +5,8 @@ import Services from "../Pages/Services/Services";
 import About from "../Pages/About/About";
 import Contact from "../Pages/Contact/Contact";
 import ServiceDetails from "../Pages/Services/ServiceDetails";
+import { Login } from "../Pages/Login/Login";
+import PrivateRoute from "./PrivateRoutes";
 
 
 const Router=createBrowserRouter([
@@ -30,8 +32,12 @@ const Router=createBrowserRouter([
             },
             {
                 path:'/servicedetails/:id',
-                element:<ServiceDetails/>,
+                element:<PrivateRoute><ServiceDetails/></PrivateRoute>,
                 loader:()=>fetch('/service.json'),
+            },
+            {
+                path:'/login',
+                element: <Login/>
             }
         ]
     }
