@@ -5,6 +5,8 @@ import Services from '../Services/Services';
 import Banner from '../../SharedComponents/Banner/Banner';
 import Aos from 'aos';
 import 'aos/dist/aos.css'
+import Statistics from '../../SharedComponents/Statistics/Statistics';
+import { Review } from '../../SharedComponents/Review/Review';
 const Home = props => {
     useEffect(()=>{
         Aos.init()
@@ -14,15 +16,15 @@ const Home = props => {
             <div data-aos='zoom-in-up' data-aos-duration='1200'>
             <Banner/>
             </div>
-            <div data-aos="fade-up"
-     data-aos-anchor-placement="bottom-center">
+            <div data-aos="fade-up" data-aos-duration='1200'>
             <Services num={3}/>
             </div>
             
-            <div className="">
-                <Button>
-                    samia
-                </Button>
+            <div data-aos="fade-right" data-aos-duration='1200'>
+                <Statistics/>
+            </div>
+            <div data-aos="fade-left" data-aos-duration='1200'>
+                <Review/>
             </div>
         </div>
     );

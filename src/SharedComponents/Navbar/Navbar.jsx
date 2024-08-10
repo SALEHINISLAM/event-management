@@ -20,7 +20,7 @@ import {
   LinkIcon,
   IdentificationIcon,
 } from "@heroicons/react/24/solid";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProviders";
 import { toast } from "react-toastify";
 
@@ -36,7 +36,7 @@ function ProfileMenu({onSignOut}) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const closeMenu = () => setIsMenuOpen(false);
-
+const {user}=useContext(AuthContext);
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
       <MenuHandler>
@@ -51,7 +51,9 @@ function ProfileMenu({onSignOut}) {
             
             alt="tania andrew"
             className="border border-gray-900 p-0.5 w-5 h-5 sm:w-10 sm:h-10"
-            src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
+            src={
+              user.photoURL? user.photoURL : "https://i.ibb.co/3TgQmTt/man-7267949-1280.jpg"
+            }
           />
           <ChevronDownIcon
             strokeWidth={2.5}
@@ -129,19 +131,26 @@ function NavList() {
   return (
     <ul className="mt-2 mb-4 ml-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
       {navListItems.map(({ label, icon, url }, key) => (
-        <Typography
-          key={label}
-          as="a"
-          href={url}
-          variant="small"
-          color="gray"
-          className="font-medium text-blue-gray-500"
+        <NavLink 
+        to={url} 
+        key={label} 
+        className={({isActive})=>{
+          isActive? 'active font-bold':"font-medium text-blue-gray-500"
+        }}
         >
-          <MenuItem className="flex items-center gap-2 lg:rounded-full">
-            {React.createElement(icon, { className: "h-[18px] w-[18px]" })}{" "}
-            <span className="text-gray-900"> {label}</span>
+          <MenuItem>
+          {
+            React.createElement(icon,{
+              className:"h-[18px] w-[40px] inline"
+            })
+          }
+          <span className="text-gray-900">
+            {
+              label
+            }
+          </span>
           </MenuItem>
-        </Typography>
+        </NavLink>
       ))}
     </ul>
   );
@@ -169,7 +178,9 @@ const {user, logOut}=useContext(AuthContext)
   return (
     <Navbar className="mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6">
       <div className="relative mx-auto flex items-center justify-between text-blue-gray-900">
+        <Link to={'/'}>
         <img src="https://i.ibb.co/h1vnBwr/logo.png" alt="" className="w-32" />
+        </Link>
         <div className="hidden lg:block">
           <NavList />
         </div>

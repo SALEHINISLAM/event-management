@@ -4,6 +4,7 @@ import { Button } from '@material-tailwind/react';
 import Lottie from 'react-lottie';
 import Aos from 'aos';
 import 'aos/dist/aos.css'
+import { Link } from 'react-router-dom';
 const Banner = props => {
     useEffect(()=>{
         Aos.init()
@@ -22,7 +23,9 @@ const Banner = props => {
                     We are here to help you...
                 </p>
                 <Button>
+                    <Link to={`/services`}>
                     Get Started
+                    </Link>
                 </Button>
             </div>
             <div className="w-full h-full" data-aos="fade-down"

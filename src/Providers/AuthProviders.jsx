@@ -30,7 +30,7 @@ import {
         await updateProfile(user, {
           displayName: fullName,
         });
-        await set(ref(database, "user", user.uid), {
+        await set(ref(database, "users/" + user.uid), {
           fName: fullName,
           email: email,
         });

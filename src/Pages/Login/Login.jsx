@@ -10,13 +10,13 @@ import {
 } from "@material-tailwind/react";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProviders";
-import { replace, useLocation, useNavigation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export function Login() {
   const { signIn, signInWithGoogle,user } = useContext(AuthContext);
   const location = useLocation();
-  const navigate = useNavigation();
+  const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
   const [error, setError]=useState(null);
   const [loading, setLoading]=useState(false);
@@ -27,10 +27,21 @@ export function Login() {
     const form = new FormData(e.currentTarget);
     const email=form.get('email');
     const password=form.get('password');
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
+      setError('please provide valid email');
+      toast.error('please provide valid email')
+      return;
+    }
+    if (password.length<6) {
+      setError('please provide correct password');
+      toast.error('please provide correct password')
+      return;
+    }
     try{
       const res=await signIn(email, password);
       console.log(res.user);
-      navigate(from, {replace:true})
+      navigate(from, { replace : true })
       toast.success('Log In Successful !!!');
     }catch(err){
       toast.error(err.message);
@@ -48,12 +59,12 @@ export function Login() {
     try{
       const res=await signInWithGoogle();
       console.log(res.user);
-      navigate(from, {replace:true})
+      navigate(from, {replace : true})
       toast.success('Log In Successful !!!');
       setLoading(false)
     }catch(err){
       setError(err.message);
-      toast.error(error)
+      toast.error(error.message)
       setLoading(false)
     }
   }
@@ -80,7 +91,7 @@ export function Login() {
           <Button variant="gradient" fullWidth type="submit" disabled={loading || user} >
             {
               user?"You have Already logged in":
-              loading? "Logging In ...":"Log In with Google"
+              loading? "Logging In ...":"Log In"
             }
           </Button>
           </form>
@@ -98,12 +109,14 @@ export function Login() {
             Don&apos;t have an account?
             <Typography
               as="a"
-              href="#signup"
+              href="/signup"
               variant="small"
               color="blue-gray"
               className="ml-1 font-bold"
             >
-              Sign up
+              
+              Sign Up
+              
             </Typography>
           </Typography>
         </CardFooter>
